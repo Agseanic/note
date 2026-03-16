@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mdls -name kMDItemVersion /Applications/Playgrounds.app 2>/dev/null || echo \"未找到 Swift Playgrounds\")",
+      "Bash(mdfind \"kMDItemCFBundleIdentifier == ''''com.apple.Playgrounds''''\")",
+      "Bash(swift --version 2>/dev/null && xcode-select -p 2>/dev/null || echo \"未安装 Swift 工具链\")",
+      "Bash(mdfind \"kMDItemFSName == 'Swift Playgrounds.app'\" 2>/dev/null; ls /Applications/ | grep -i play; find /Applications -maxdepth 2 -name \"*.app\" 2>/dev/null | grep -i play)"
+    ]
+  }
+}
