@@ -14,10 +14,16 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
+      - name: List schemes
+        run: |
+          xcodebuild -list -workspace DayNote.swiftpm 2>/dev/null || true
+          xcodebuild -list -workspace DayNote.swiftpm/Package.swift 2>/dev/null || true
+          ls -la DayNote.swiftpm/
+
       - name: Build Mac Catalyst App
         run: |
           xcodebuild build \
-            -project DayNote.swiftpm \
+            -workspace DayNote.swiftpm \
             -scheme DayNote \
             -destination 'platform=macOS,variant=Mac Catalyst' \
             -derivedDataPath build \
