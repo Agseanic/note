@@ -84,7 +84,7 @@ struct TodayView: View {
             .background(Color(uiColor: .systemGroupedBackground))
 
             // 聊天气泡列表
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 ScrollViewReader { proxy in
                     LazyVStack(spacing: 12) {
                         if let note = todayNote {

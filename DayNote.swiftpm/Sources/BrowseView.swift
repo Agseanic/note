@@ -18,16 +18,15 @@ struct BrowseView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            // 顶部栏：标题居中
-            Text("浏览")
-                .font(.system(.headline, design: .rounded, weight: .semibold))
-                .padding(.top, 12)
-                .padding(.bottom, 8)
-                .frame(maxWidth: .infinity)
-                .background(Color(uiColor: .systemGroupedBackground))
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                // 标题放在ScrollView内部，消除边界线
+                Text("浏览")
+                    .font(.system(.headline, design: .rounded, weight: .semibold))
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 12)
+                    .padding(.bottom, 16)
 
-            ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
                     DatePicker("选择日期", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)

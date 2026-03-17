@@ -1,0 +1,15 @@
+# User requested excludes
+*.png
+
+# macOS
+.DS_Store
+
+# SwiftPM
+.build/
+
+# Claude
+.claude/
+
+# Temporary files
+*.swp
+*~
