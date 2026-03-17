@@ -1,0 +1,43 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
+      - name: Build Mac Catalyst App
+        run: |
+          xcodebuild build \
+            -project DayNote.swiftpm \
+            -scheme DayNote \
+            -destination 'platform=macOS,variant=Mac Catalyst' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="-"
+
+      - name: Package App
+        run: |
+          APP_PATH=$(find build -name "DayNote.app" -type d | head -1)
+          if [ -z "$APP_PATH" ]; then
+            echo "App not found, listing build directory:"
+            find build -name "*.app" -type d
+            exit 1
+          fi
+          ditto -c -k --keepParent "$APP_PATH" DayNote-macOS.zip
+
+      - name: Upload App
+        uses: actions/upload-artifact@v4
+        with:
+          name: DayNote-macOS
+          path: DayNote-macOS.zip
+          retention-days: 30
